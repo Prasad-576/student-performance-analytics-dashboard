@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h2>EduAnalytics</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="#"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fa-solid fa-users"></i> Students</a></li>
+                    <li><a href="reports.html"><i class="fa-solid fa-file-invoice"></i> Reports</a></li>
+                    <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <button id="theme-btn"><i class="fa-solid fa-sun"></i> Light Mode</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="header-title">
+                    <h1>Dashboard Overview</h1>
+                    <p>Welcome back, Admin</p>
+                </div>
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search students...">
+                </div>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=random" alt="User">
+                </div>
+            </header>
+
+            <!-- Filters -->
+            <section class="filters glass-card">
+                <div class="filter-group">
+                    <label>Department</label>
+                    <select id="filter-dept">
+                        <option value="all">All Departments</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Mechanical">Mechanical</option>
+                        <option value="Civil">Civil</option>
+                        <option value="Information Technology">IT</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Year</label>
+                    <select id="filter-year">
+                        <option value="all">All Years</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Gender</label>
+                    <select id="filter-gender">
+                        <option value="all">All Genders</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <button id="reset-filters" class="btn-secondary">Reset Filters</button>
+                </div>
+            </section>
+
+            <!-- Summary Cards -->
+            <section class="summary-cards">
+                <div class="card glass-card">
+                    <div class="card-icon blue"><i class="fa-solid fa-user-graduate"></i></div>
+                    <div class="card-info">
+                        <h3>Total Students</h3>
+                        <h2 id="total-students">0</h2>
+                    </div>
+                </div>
+                <div class="card glass-card">
+                    <div class="card-icon green"><i class="fa-solid fa-check-circle"></i></div>
+                    <div class="card-info">
+                        <h3>Avg Attendance</h3>
+                        <h2 id="avg-attendance">0%</h2>
+                    </div>
+                </div>
+                <div class="card glass-card">
+                    <div class="card-icon purple"><i class="fa-solid fa-star"></i></div>
+                    <div class="card-info">
+                        <h3>Avg Marks</h3>
+                        <h2 id="avg-marks">0</h2>
+                    </div>
+                </div>
+                <div class="card glass-card">
+                    <div class="card-icon orange"><i class="fa-solid fa-trophy"></i></div>
+                    <div class="card-info">
+                        <h3>Top Performer</h3>
+                        <h2 id="top-performer" class="small-text">-</h2>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charts Grid -->
+            <section class="charts-grid">
+                <div class="chart-container glass-card large">
+                    <h3>Performance by Subject</h3>
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div class="chart-container glass-card">
+                    <h3>Semester Trends</h3>
+                    <canvas id="lineChart"></canvas>
+                </div>
+                <div class="chart-container glass-card small">
+                    <h3>Gender Distribution</h3>
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <div class="chart-container glass-card small">
+                    <h3>Grade Distribution</h3>
+                    <canvas id="doughnutChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Student Table -->
+            <section class="student-list glass-card">
+                <div class="table-header">
+                    <h3>Student Details</h3>
+                    <div class="pagination-controls">
+                        <button id="prev-page" disabled><i class="fa-solid fa-chevron-left"></i></button>
+                        <span id="page-info">Page 1 of 1</span>
+                        <button id="next-page"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Dept</th>
+                                <th>Year</th>
+                                <th>Avg Marks</th>
+                                <th>Attendance</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-table-body">
+                            <!-- Rows will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
