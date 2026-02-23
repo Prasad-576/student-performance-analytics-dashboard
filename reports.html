@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Student Performance Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h2>EduAnalytics</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fa-solid fa-users"></i> Students</a></li>
+                    <li class="active"><a href="reports.html"><i class="fa-solid fa-file-invoice"></i> Reports</a></li>
+                    <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <button id="theme-btn"><i class="fa-solid fa-sun"></i> Light Mode</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="header-title">
+                    <h1>Reports Generator</h1>
+                    <p>Generate and download student performance reports</p>
+                </div>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=random" alt="User">
+                </div>
+            </header>
+
+            <!-- Bulk Reports Section -->
+            <section class="reports-section">
+                <h2>Bulk Reports</h2>
+                <div class="report-cards">
+                    <div class="card glass-card report-card">
+                        <div class="card-icon blue"><i class="fa-solid fa-clipboard-check"></i></div>
+                        <div class="card-info">
+                            <h3>Attendance Report</h3>
+                            <p>Download full attendance data for all students.</p>
+                            <button id="download-attendance" class="btn-primary">Download CSV <i
+                                    class="fa-solid fa-download"></i></button>
+                        </div>
+                    </div>
+                    <div class="card glass-card report-card">
+                        <div class="card-icon purple"><i class="fa-solid fa-star"></i></div>
+                        <div class="card-info">
+                            <h3>Marks Report</h3>
+                            <p>Download comprehensive marks sheet.</p>
+                            <button id="download-marks" class="btn-primary">Download CSV <i
+                                    class="fa-solid fa-download"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Individual Student Report Section -->
+            <section class="individual-report glass-card">
+                <h2>Individual Student Report</h2>
+                <div class="filter-group">
+                    <label>Select Student</label>
+                    <select id="student-select">
+                        <option value="">-- Select a Student --</option>
+                        <!-- Options populated via JS -->
+                    </select>
+                </div>
+                <div id="student-report-preview" class="report-preview hidden">
+                    <div class="report-header">
+                        <h3 id="report-student-name">Student Name</h3>
+                        <p id="report-student-id">ID: 101</p>
+                    </div>
+                    <div class="report-details">
+                        <div class="detail-item">
+                            <span class="label">Department:</span>
+                            <span class="value" id="report-dept">CS</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Year:</span>
+                            <span class="value" id="report-year">3</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Attendance:</span>
+                            <span class="value" id="report-attendance">85%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Overall Grade:</span>
+                            <span class="value" id="report-grade">A</span>
+                        </div>
+                    </div>
+                    <div class="report-subjects">
+                        <h4>Subject Performance</h4>
+                        <table id="report-subjects-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Marks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rows injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="report-actions">
+                        <button id="download-pdf-btn" class="btn-primary">Download PDF <i
+                                class="fa-solid fa-file-pdf"></i></button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <script src="reports.js"></script>
+</body>
+
+</html>
